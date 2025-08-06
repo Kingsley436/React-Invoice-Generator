@@ -148,7 +148,52 @@
   margin-bottom: 8px;
 }
 
+.company-client-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* FOR PRINT */
+@media screen and (min-width: 768px) {
+  .company-client-wrapper {
+    flex-direction: row;
+  }
+}
+
+@media print {
+  .company-client-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+  }
+
+  .company-details-wrapper,
+  .client-details-wrapper {
+    flex: 1;
+    max-width: 50%;
+    box-sizing: border-box;
+  }
+
+  .company-details,
+  .client-details {
+    background: white !important;
+    border: 1px solid #ddd !important;
+    padding: 15px !important;
+    border-left: 4px solid #0d6efd !important;
+  }
+}
+
+
 /* Print Styles */
+@media print {
+  .print-only {
+    display: block !important;
+  }
+}
+
 @media print {
   .invoice-container {
     background: white !important;
@@ -226,8 +271,3 @@
   display: none;
 }
 
-@media print {
-  .print-only {
-    display: block !important;
-  }
-}

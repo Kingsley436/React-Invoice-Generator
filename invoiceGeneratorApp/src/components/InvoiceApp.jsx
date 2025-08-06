@@ -94,76 +94,69 @@ const InvoiceApp = () => {
               <Col md={8}>
                 <h1 className="invoice-title text-primary">INVOICE</h1>
               </Col>
-              <Col md={4} className="text-end">
-                <div className="no-print">
-                  <Button variant="success" onClick={handlePrint} className="print-btn">
-                    <i className="fas fa-print me-2"></i>Print Invoice
-                  </Button>
-                </div>
-              </Col>
             </Row>
           </div>
 
           {/* Company and Client Details - Same Row */}
-          <Row className="mb-4 company-client-row">
-            <Col md={6}>
-              <div className="company-details">
-                <h4 className="text-primary mb-3">From:</h4>
-                <div className="details-display">
-                  <h5 className="company-name">{company.name}</h5>
-                  <p className="mb-1">{company.address}</p>
-                  <p className="mb-1">Phone: {company.phone}</p>
-                  <p className="mb-0">Email: {company.email}</p>
-                </div>
-              </div>
-            </Col>
-            <Col md={6}>
-              <div className="client-details">
-                <h4 className="text-primary mb-3">Bill To:</h4>
-                <div className="no-print">
-                  <Form.Group className="mb-2">
-                    <Form.Control
-                      type="text"
-                      placeholder="Client Name"
-                      value={invoiceData.client.name}
-                      onChange={(e) => handleClientChange('name', e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-2">
-                    <Form.Control
-                      as="textarea"
-                      rows={2}
-                      placeholder="Client Address"
-                      value={invoiceData.client.address}
-                      onChange={(e) => handleClientChange('address', e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-2">
-                    <Form.Control
-                      type="text"
-                      placeholder="Phone Number"
-                      value={invoiceData.client.phone}
-                      onChange={(e) => handleClientChange('phone', e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-2">
-                    <Form.Control
-                      type="email"
-                      placeholder="Email Address"
-                      value={invoiceData.client.email}
-                      onChange={(e) => handleClientChange('email', e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="print-only details-display">
-                  <h5 className="client-name">{invoiceData.client.name || 'Client Name'}</h5>
-                  <p className="mb-1">{invoiceData.client.address || 'Client Address'}</p>
-                  <p className="mb-1">Phone: {invoiceData.client.phone || 'Phone Number'}</p>
-                  <p className="mb-0">Email: {invoiceData.client.email || 'Email Address'}</p>
-                </div>
-              </div>
-            </Col>
-          </Row>
+          <div className="company-client-wrapper d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+  <div className="company-details-wrapper flex-fill">
+    <div className="company-details">
+      <h4 className="text-primary mb-3">From:</h4>
+      <div className="details-display">
+        <h5 className="company-name">{company.name}</h5>
+        <p className="mb-1">{company.address}</p>
+        <p className="mb-1">Phone: {company.phone}</p>
+        <p className="mb-0">Email: {company.email}</p>
+      </div>
+    </div>
+  </div>
+  <div className="client-details-wrapper flex-fill">
+    <div className="client-details">
+      <h4 className="text-primary mb-3">Bill To:</h4>
+      <div className="no-print">
+        <Form.Group className="mb-2">
+          <Form.Control
+            type="text"
+            placeholder="Client Name"
+            value={invoiceData.client.name}
+            onChange={(e) => handleClientChange('name', e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Control
+            as="textarea"
+            rows={2}
+            placeholder="Client Address"
+            value={invoiceData.client.address}
+            onChange={(e) => handleClientChange('address', e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Control
+            type="text"
+            placeholder="Phone Number"
+            value={invoiceData.client.phone}
+            onChange={(e) => handleClientChange('phone', e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-2">
+          <Form.Control
+            type="email"
+            placeholder="Email Address"
+            value={invoiceData.client.email}
+            onChange={(e) => handleClientChange('email', e.target.value)}
+          />
+        </Form.Group>
+      </div>
+      <div className="print-only details-display">
+        <h5 className="client-name">{invoiceData.client.name || 'Client Name'}</h5>
+        <p className="mb-1">{invoiceData.client.address || 'Client Address'}</p>
+        <p className="mb-1">Phone: {invoiceData.client.phone || 'Phone Number'}</p>
+        <p className="mb-0">Email: {invoiceData.client.email || 'Email Address'}</p>
+      </div>
+    </div>
+  </div>
+</div>
 
           {/* Invoice Details */}
           <Row className="mb-4">
@@ -261,7 +254,7 @@ const InvoiceApp = () => {
                       <div className="no-print">
                         <Form.Control
                           type="number"
-                          step="0.01"
+                          // step="0.01"
                           min="0"
                           value={item.rate}
                           onChange={(e) => handleItemChange(item.id, 'rate', parseFloat(e.target.value) || 0)}
@@ -298,7 +291,7 @@ const InvoiceApp = () => {
           {/* Totals */}
           <Row>
             <Col md={8}>
-              <div className="no-print">
+              <div className="no-print mb-4">
                 <Form.Group>
                   <Form.Label>Notes</Form.Label>
                   <Form.Control
@@ -318,6 +311,12 @@ const InvoiceApp = () => {
                   </div>
                 )}
               </div>
+
+              <div className="no-print mt-3">
+                <Button variant="success" onClick={handlePrint} className="print-btn">
+                  <i className="fas fa-print me-2"></i>Print Invoice
+                </Button>
+              </div>
             </Col>
             <Col md={4}>
               <div className="totals-section">
@@ -334,7 +333,7 @@ const InvoiceApp = () => {
                             <InputGroup.Text>Discount:</InputGroup.Text>
                             <Form.Control
                               type="number"
-                              step="0.01"
+                              // step="0.1"
                               min="0"
                               value={invoiceData.discount}
                               onChange={(e) => setInvoiceData(prev => ({ ...prev, discount: parseFloat(e.target.value) || 0 }))}
